@@ -1,0 +1,17 @@
+# Log files
+*.log
+app.log
+
+# Local configuration files
+gui_config.json
+
+# PyInstaller files
+*.spec
+/build/
+/dist/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd

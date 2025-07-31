@@ -1,0 +1,38 @@
+allow-lan: true
+mode: rule
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: redir-host
+  listen: 0.0.0.0:53
+  nameserver:
+    - tls://1.1.1.1
+    - tls://8.8.8.8
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+  default-nameserver:
+    - tls://1.12.12.12
+    - 119.29.29.29
+  nameserver-policy:
+    geosite:cn: https://dns.pub/dns-query
+
+proxies:
+
+proxy-groups:
+  - name: "🚀 PROXY"
+    type: select
+    proxies:
+      - DIRECT
+
+rules:
+  # 局域网 / 私网直连
+  - GEOSITE,private,DIRECT
+  - GEOIP,private,DIRECT
+  # 国外域名走代理
+  - GEOSITE,geolocation-!cn,🚀 PROXY
+  # 中国大陆流量直连
+  - GEOSITE,CN,DIRECT
+  - GEOIP,CN,DIRECT
+  # 其余全部走主代理
+  - MATCH,🚀 PROXY
