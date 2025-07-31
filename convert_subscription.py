@@ -307,6 +307,12 @@ def generate_individual_yaml_files(
         
         # 写入文件 - 使用YAML库来正确处理代理配置
         with open(output_file, "w", encoding="utf-8") as f:
+            # 在转储前添加一个空行以提高可读性
+            if 'proxies' in config_data:
+                config_data.yaml_set_comment_before_after_key('proxies', before='\n')
+            if 'rules' in config_data:
+                config_data.yaml_set_comment_before_after_key('rules', before='\n')
+            
             # 先将配置写入字符串
             import io
             temp_stream = io.StringIO()

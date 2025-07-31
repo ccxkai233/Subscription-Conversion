@@ -737,9 +737,18 @@ class ClashConfigApp(ctk.CTk):
             return
             
         try:
+            # Create a deep copy for formatting to avoid mutating the main config object
+            config_to_dump = copy.deepcopy(self.config_data)
+
+            # Apply formatting to the copy
+            if 'proxies' in config_to_dump:
+                config_to_dump.yaml_set_comment_before_after_key('proxies', before='\n')
+            if 'rules' in config_to_dump:
+                config_to_dump.yaml_set_comment_before_after_key('rules', before='\n')
+
             # 生成完整的 YAML 预览
             preview_yaml = io.StringIO()
-            self.yaml_rt.dump(self.config_data, preview_yaml)
+            self.yaml_rt.dump(config_to_dump, preview_yaml)
             preview_content = preview_yaml.getvalue()
             
             # 修复预览中的rules格式问题
@@ -874,10 +883,19 @@ class ClashConfigApp(ctk.CTk):
         
         if file_path:
             with open(file_path, 'w', encoding='utf-8') as f:
+                # Create a deep copy for formatting to avoid mutating the main config object
+                config_to_dump = copy.deepcopy(self.config_data)
+
+                # 在转储前添加一个空行以提高可读性
+                if 'proxies' in config_to_dump:
+                    config_to_dump.yaml_set_comment_before_after_key('proxies', before='\n')
+                if 'rules' in config_to_dump:
+                    config_to_dump.yaml_set_comment_before_after_key('rules', before='\n')
+
                 # 直接使用字符串替换方法，避免复杂的YAML处理
                 import io
                 temp_stream = io.StringIO()
-                self.yaml_rt.dump(self.config_data, temp_stream)
+                self.yaml_rt.dump(config_to_dump, temp_stream)
                 yaml_content = temp_stream.getvalue()
                 
                 # 简单粗暴地修复rules格式问题
