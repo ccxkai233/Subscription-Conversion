@@ -4,7 +4,7 @@ A GUI tool for generating custom Clash configuration files from subscription lin
 
 ## Features
 
-- **Template-Based**: Builds the final configuration based on a `模版.yaml` (template.yaml) file, preserving its original structure and most settings.
+- **Template-Based**: Builds the final configuration based on a `template.yaml` file, preserving its original structure and most settings.
 - **Multiple Subscriptions**: Supports adding multiple speed-test groups, each with its own set of subscription links.
 - **Manual Nodes**: Supports adding manually selected nodes.
 - **Live Preview**: Modifying subscription links or settings in the UI provides a real-time preview of the final YAML file.
@@ -18,9 +18,9 @@ A GUI tool for generating custom Clash configuration files from subscription lin
 ### For End-Users
 
 1.  Download the `gui_app_v2.exe` file from the `dist` folder (if available).
-2.  Ensure `gui_app_v2.exe` and `模版.yaml` are in the same directory.
+2.  Ensure `gui_app_v2.exe` and `template.yaml` are in the same directory.
 3.  Double-click `gui_app_v2.exe` to run it.
-4.  The application will automatically load `模版.yaml` on startup. If not found, it will prompt you to select it manually.
+4.  The application will automatically load `template.yaml` on startup. If not found, it will prompt you to select it manually.
 5.  Enter your Clash subscription links in the "Speed-Test Groups" section.
 6.  Enter links for nodes you want to select manually in the "Manual Selection Group" section.
 7.  The right panel will show a live preview of the generated configuration.
@@ -56,6 +56,6 @@ This project uses `PyInstaller` to create an executable.
 
 2.  Run the build command:
     ```bash
-    pyinstaller --noconfirm --onefile --windowed --add-data "模版.yaml;." --add-data "convert_subscription.py;." --add-data "converters.py;."  "gui_app_v2.py"
+    pyinstaller --noconfirm --onefile --windowed --add-data "template.yaml;." --add-data "convert_subscription.py;." --add-data "converters.py;."  "gui_app_v2.py"
     ```
     The bundled executable will be located in the `dist` directory.

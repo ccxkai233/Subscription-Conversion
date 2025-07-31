@@ -462,7 +462,7 @@ class ClashConfigApp(ctk.CTk):
     def import_template(self):
         """导入模版文件"""
         # 首先尝试使用默认模版
-        default_template = "模版.yaml"
+        default_template = "template.yaml"
         if os.path.exists(default_template):
             if messagebox.askyesno("导入模版", f"发现默认模版文件 '{default_template}'，是否使用？"):
                 self.load_template_file(default_template)
